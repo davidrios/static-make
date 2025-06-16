@@ -20,6 +20,6 @@ gpg --verify "$ARCHIVE.sig" "$ARCHIVE"
 tar xf "$ARCHIVE"
 
 cd "make-$VERSION"
-./configure CC="$CC"
+./configure CC="$CC" --host="$ARCH"
 make
 mv make ..
