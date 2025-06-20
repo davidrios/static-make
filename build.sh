@@ -20,6 +20,10 @@ gpg --verify "$ARCHIVE.sig" "$ARCHIVE"
 tar xf "$ARCHIVE"
 
 cd "make-$VERSION"
+TARGET=$(echo $CC | grep -Po 'target .+' | cut -d' ' -f2)
 ./configure CC="$CC" --host="$ARCH"
+if test -n "$TARGET"; then
+	sed -i -e 's/#define MAKE_HOST ".*"/#define MAKE_HOST "'$TARGET'"/g' src/config.h
+fi
 make
 mv make ..
